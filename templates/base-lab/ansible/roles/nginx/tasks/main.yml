@@ -1,0 +1,73 @@
+---
+- name: Install nginx
+  ansible.builtin.package:
+    name: nginx
+    state: present
+
+- name: Ensure nginx is running and enabled
+  ansible.builtin.service:
+    name: nginx
+    state: started
+    enabled: true
+
+- name: Get server info (IP, hostname, distro, CPU, RAM)
+  ansible.builtin.set_fact:
+    nginx_server_ip: "{{ ansible_default_ipv4.address }}"
+    nginx_server_hostname: "{{ ansible_hostname }}"
+    nginx_server_distribution: "{{ ansible_distribution }} {{ ansible_distribution_version }}"
+    nginx_server_cpus: "{{ ansible_processor_vcpus | default(ansible_processor_count) }}"
+    nginx_server_ram_mb: "{{ (ansible_memtotal_mb | int) }}"
+  when: nginx_custom_content | bool
+
+- name: Deploy custom index.html with server IP (Debian/Ubuntu)
+  ansible.builtin.template:
+    src: index.html.j2
+    dest: /var/www/html/index.html
+    owner: root
+    group: root
+    mode: '0644'
+  when:
+    - ansible_os_family == 'Debian'
+    - nginx_custom_content | bool
+
+- name: Deploy server info JSON (Debian/Ubuntu)
+  ansible.builtin.template:
+    src: serverinfo.json.j2
+    dest: /var/www/html/json
+    owner: root
+    group: root
+    mode: '0644'
+  when:
+    - ansible_os_family == 'Debian'
+    - nginx_custom_content | bool
+
+- name: Deploy custom index.html with server IP (RHEL)
+  ansible.builtin.template:
+    src: index.html.j2
+    dest: /usr/share/nginx/html/index.html
+    owner: root
+    group: root
+    mode: '0644'
+  when:
+    - ansible_os_family == 'RedHat'
+    - nginx_custom_content | bool
+
+- name: Deploy server info JSON (RHEL)
+  ansible.builtin.template:
+    src: serverinfo.json.j2
+    dest: /usr/share/nginx/html/json
+    owner: root
+    group: root
+    mode: '0644'
+  when:
+    - ansible_os_family == 'RedHat'
+    - nginx_custom_content | bool 
+
+# Remove /json endpoint (RHEL)
+- name: Remove /json endpoint (RHEL)
+  ansible.builtin.file:
+    path: /usr/share/nginx/html/json
+    state: absent
+  when:
+    - ansible_os_family == 'RedHat'
+    - not nginx_custom_content | bool 

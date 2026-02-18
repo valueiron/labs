@@ -6,4 +6,4 @@ This is the official template for creating new labs.
 
 ```bash
 cp -r base-lab my-new-lab
-
+```

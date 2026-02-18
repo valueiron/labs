@@ -1,0 +1,13 @@
+# Environment and secrets
+.env
+.env.*
+!.env.example
+
+# Terraform state and local files (do not commit)
+*.tfstate
+*.tfstate.*
+.terraform/
+*.tfplan
+crash.log
+crash.*.log
+*.tfvars.json

@@ -1,0 +1,3 @@
+---
+# Default variables for nginx role
+nginx_custom_content: false

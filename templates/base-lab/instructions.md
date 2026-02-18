@@ -12,6 +12,6 @@ Welcome to the Base Lab Template.
 
 ## Step 1: Inspect Infrastructure
 
-```bash run
+```bash
 terraform init
 

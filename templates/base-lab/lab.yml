@@ -1,31 +1,21 @@
 name: "Base Lab Template"
 id: base-lab
 difficulty: beginner
-estimated_time: 30m
+estimated_time: 10m
 
 tags:
   - terraform
   - ansible
   - proxmox
-  - aws
 
 clouds:
   - proxmox
-  - aws
 
 terraform:
   proxmox: terraform/proxmox
-  aws: terraform/aws
 
 ansible:
-  linux: ansible/linux/playbook.yml
-  windows: ansible/windows/playbook.yml
-
-ui:
-  mode: split-terminal
-  terminal: linux
-  windows_desktop: false
+  playbook: ansible/linux/playbook.yml
 
 grading:
-  linux: validation/check.sh
-  windows: validation/check.ps1
+  validation: validation/check.sh
