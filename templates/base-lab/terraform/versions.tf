@@ -9,6 +9,10 @@ terraform {
       source  = "Telmate/proxmox"
       version = "3.0.2-rc03"
     }
+    local = {
+      source  = "hashicorp/local"
+      version = "~> 2.4"
+    }
   }
 }
 
@@ -18,3 +22,5 @@ provider "proxmox" {
   pm_api_token_secret = var.pm_api_token_secret
   pm_tls_insecure     = var.pm_tls_insecure # <-- (Optional) Change to true if you are using self-signed certificates
 }
+
+provider "local" {}

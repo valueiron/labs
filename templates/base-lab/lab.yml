@@ -15,7 +15,7 @@ terraform:
   proxmox: terraform/proxmox
 
 ansible:
-  playbook: ansible/linux/playbook.yml
+  playbook: ansible/playbook.yml
 
 grading:
   validation: validation/check.sh

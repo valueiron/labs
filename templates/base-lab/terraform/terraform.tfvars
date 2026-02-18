@@ -1,3 +1,7 @@
+# Optional: generate Ansible inventory file for playbooks
+# create_ansible_inventory_file = true
+# ansible_inventory_file_path   = "inventory/hosts"
+
 vm1_config = {
   name          = "web-server-vm"
   clone         = "ubuntu2404"

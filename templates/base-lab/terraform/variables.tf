@@ -40,3 +40,19 @@ variable "vm1_config" {
   description = "VM1 config"
   type        = any
 }
+
+# ------------------------------------------------------------------------------
+# Ansible inventory file (local_file)
+# ------------------------------------------------------------------------------
+
+variable "create_ansible_inventory_file" {
+  description = "If true, write an Ansible hosts file (inventory) that playbooks can use."
+  type        = bool
+  default     = false
+}
+
+variable "ansible_inventory_file_path" {
+  description = "Path for the generated Ansible inventory file (relative to Terraform run, or absolute)."
+  type        = string
+  default     = "hosts"
+}
